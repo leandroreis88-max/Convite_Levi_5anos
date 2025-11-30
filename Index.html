@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convite Grande Prêmio Levi - Responsivo</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root{
+            --hw-red:#e31d2b;
+            --hw-yellow:#ffcc00;
+            --hw-blue:#005eb8;
+            --racing-bg:#0f0f0f;
+        }
+
+        html,body{height:100%;}
+        body{
+            margin:0;
+            background:var(--racing-bg);
+            font-family:"Roboto", sans-serif;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:40px 20px;
+        }
+
+        .invite-card{
+            width:100%;
+            max-width:420px;
+            height: auto; 
+            border-radius:22px;
+            overflow:hidden;
+            position:relative;
+            box-shadow:0 12px 40px rgba(0,0,0,0.6);
+            border:4px solid #fff;
+            background-image:url('https://i.ibb.co/gFwsSV0Z/Screenshot-20251130-022426-Google.png');
+            background-size:cover;
+            background-position:center center;
+        }
+        
+        .invite-card[style] {
+            aspect-ratio: auto !important;
+        }
+
+
+        .overlay{
+            position:absolute;inset:0;
+            background:linear-gradient(to bottom,
+                rgba(0,0,0,0.2),
+                rgba(0,0,0,0.5),
+                rgba(0,0,0,0.9)
+            );
+            z-index:2;
+        }
+
+        .flames{
+            position:absolute;
+            left:0;right:0;bottom:0;
+            height:120px;
+            background-image:url('https://i.ibb.co/j3bsHns/fire.gif');
+            background-size:cover;
+            opacity:0.28;
+            z-index:3;
+            pointer-events:none;
+        }
+
+        .content{
+            position:relative;
+            z-index:5;
+            display:flex;
+            flex-direction:column;
+            height:100%;
+            color:white;
+            padding:18px 18px 30px 18px; 
+        }
+
+        /* NOVO CONTAINER FLEXÍVEL para LOGO e TÍTULO */
+        .top-header {
+            display: flex;
+            justify-content: space-between; /* Espaço entre os elementos */
+            align-items: flex-start; /* Alinha ao topo */
+            margin-bottom: 20px; /* Adiciona espaço antes do próximo elemento (info-panel) */
+        }
+
+        .logo{
+            /* Logo: Maior e alinhado à direita */
+            width: 55%; 
+            max-width: 220px; 
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.7));
+            margin-left: auto; /* Garante que ele vá para a direita no flex */
+            margin-top: 5px; /* Ajuste fino para cima */
+        }
+
+        /* Estilo para "LEVI" */
+        .title {
+            /* Título: Alinhado à esquerda */
+            text-align: left; 
+            line-height: 1; 
+            margin-right: auto; /* Garante que ele vá para a esquerda no flex */
+            margin-top: 15px; /* Ajuste fino para cima */
+        }
+
+        .title .name-levi {
+            color: var(--hw-yellow);
+            font-family: 'Racing Sans One';
+            font-size: clamp(65px, 17vw, 90px); 
+            text-shadow:
+                2px 2px 0 var(--hw-red),
+                -2px -2px 0 var(--hw-red),
+                4px 4px 10px rgba(255,165,0,0.9), 
+                -4px -4px 10px rgba(255,69,0,0.6); 
+            text-transform: uppercase;
+            margin: 0; 
+        }
+
+        /* Estilo para "5 anos" */
+        .title .age-levi {
+            text-align: left; 
+            font-size: clamp(18px, 4vw, 24px); 
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            margin: -5px 0 0 5px; 
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+        }
+
+        .info-panel{
+            /* O margin-top: auto original que empurrava o painel para baixo é restaurado
+               pelo fluxo normal de flex-direction: column e o margin-bottom do top-header. */
+            margin-top:auto;
+            background:rgba(0,0,0,0.5); 
+            backdrop-filter:blur(4px);
+            padding:12px;
+            border-radius:12px;
+            border:3px solid rgba(255,204,0,0.12);
+        }
+
+        .info-row{
+            display:flex;
+            gap:10px;
+            margin-bottom:8px;
+            align-items:flex-start;
+        }
+
+        .info-row i{
+            background:var(--hw-red);
+            width:36px;height:36px;
+            border-radius:50%;
+            display:grid;
+            place-items:center;
+            border:2px solid #fff;
+        }
+
+        .info-row h4{
+            margin:0;
+            font-size:11px;
+            color:var(--hw-yellow);
+            text-transform:uppercase;
+        }
+
+        .info-row p{
+            margin:0;
+            font-size:15px;
+            font-weight:700;
+        }
+
+        .actions{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            margin-top:12px;
+        }
+
+        .btn{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            padding:12px;
+            border-radius:10px;
+            font-weight:700;
+            text-transform:uppercase;
+            cursor:pointer;
+        }
+
+        .btn-rsvp{background:var(--hw-yellow);color:#111}
+        .btn-wp{background:#25D366;color:#fff}
+        .btn-map{background:var(--hw-blue);color:#fff} 
+
+        .fireworks-canvas{
+            position:absolute;
+            left:0;top:0;
+            width:100%;height:100%;
+            pointer-events:none;
+            z-index:60;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="invite-card" id="invite">
+    <canvas class="fireworks-canvas" id="fire-canvas"></canvas>
+    <div class="flames"></div>
+    <div class="overlay"></div>
+
+    <div class="content">
+        <div class="top-header">
+            <div class="title">
+                <div class="name-levi">Levi</div>
+                <div class="age-levi">5 anos</div>
+            </div>
+            <img src="https://i.ibb.co/8DFNfn0P/artpoin-hot-wheels11.png"
+                 class="logo" alt="Hot Wheels">
+        </div>
+        <div class="info-panel">
+            <div class="info-row">
+                <i class="fas fa-flag-checkered"></i>
+                <div>
+                    <h4>Data</h4>
+                    <p>21 de Janeiro (Quinta-feira)</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <i class="fas fa-stopwatch"></i>
+                <div>
+                    <h4>Largada</h4>
+                    <p>19:00</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Pit Stop</h4>
+                    <p>Fantasy Buffet</p>
+                    <p style="font-size:11px;color:#ccc;margin-top:4px">Av. Santana, 103 - Atibaia</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="btnRsvp" class="btn btn-rsvp">
+                <i class="fas fa-check-circle"></i> Confirmar Presença
+            </button>
+
+            <a class="btn btn-wp"
+               href="https://wa.me/5511985872181?text=Olá! Quero confirmar minha presença no Grande Prêmio do Levi!"
+               target="_blank">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+            
+            <a class="btn btn-map"
+               href="https://www.google.com/maps/dir//Fantasy+Buffet+-+Av.+Santana,+103+-+Nova+Gard%C3%AAnia,+Atibaia+-+SP,+12946-000/@-23.1167442,-46.5772421,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x94ceb701777d8531:0x49e7a2b97779f6e6!2m2!1d-46.5746672!2d-23.1147575?entry=ttu" 
+               target="_blank">
+                <i class="fas fa-map-marked-alt"></i> Ver Localização no Mapa
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const card = document.getElementById('invite');
+    const canvas = document.getElementById('fire-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function fitCanvas(){
+        const rect = card.getBoundingClientRect();
+        canvas.width = rect.width * devicePixelRatio;
+        canvas.height = rect.height * devicePixelRatio;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+
+    window.addEventListener('resize', fitCanvas);
+    window.addEventListener('load', fitCanvas);
+
+    let particles = [];
+
+    function spawnFirework(x, y){
+        const colors = ["#ffdd55","#ff5555","#55ff55","#55ddff","#ff66ff"];
+        const color = colors[Math.floor(Math.random()*colors.length)];
+        const count = 30;
+
+        for(let i=0;i<count;i++){
+            const angle = Math.random()*Math.PI*2;
+            const speed = 1 + Math.random()*4;
+
+            particles.push({
+                x, y,
+                vx: Math.cos(angle)*speed,
+                vy: Math.sin(angle)*speed,
+                life: 70,
+                color
+            });
+        }
+    }
+
+    function animateFireworks(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        for(let i=particles.length-1;i>=0;i--){
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.05;
+            p.life--;
+
+            ctx.globalAlpha = Math.max(0, p.life/70);
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,3,0,Math.PI*2);
+            ctx.fill();
+
+            if(p.life <= 0) particles.splice(i,1);
+        }
+
+        requestAnimationFrame(animateFireworks);
+    }
+
+    animateFireworks();
+
+    document.getElementById('btnRsvp').addEventListener('click', ()=>{
+        const rect = card.getBoundingClientRect();
+        spawnFirework(rect.width*0.3, rect.height*0.3);
+        spawnFirework(rect.width*0.7, rect.height*0.25);
+        spawnFirework(rect.width*0.5, rect.height*0.4);
+
+        const btn = document.getElementById('btnRsvp');
+        btn.textContent = "Presença Confirmada ✅";
+        btn.style.background = "#9CA3AF";
+        btn.style.color = "#111";
+    });
+
+    fitCanvas();
+</script>
+
+</body>
+</html>
